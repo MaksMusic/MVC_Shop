@@ -31,7 +31,7 @@ public class RegController {
     public String registerUser(@ModelAttribute("user") @Valid User user, BindingResult bindingResult, @RequestParam("confirmPassword") String confirmPassword) {
         // Ваша логика регистрации пользователя
         Logger.getLogger(RegController.class.getName()).info(user.toString());
-        return "redirect:/login"; // Перенаправление на страницу входа после успешной регистрации
+        return "redirect:/lk"; // Перенаправление на страницу входа после успешной регистрации
     }
 
 

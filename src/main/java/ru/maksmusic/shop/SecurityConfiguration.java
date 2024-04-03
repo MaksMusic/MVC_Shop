@@ -7,6 +7,9 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.web.SecurityFilterChain;
 
 
+
+
+@Configuration
 @EnableWebSecurity
 public class SecurityConfiguration {
 
@@ -18,11 +21,12 @@ public class SecurityConfiguration {
                 //.csrf((csrf) -> csrf.disable())
                 .authorizeHttpRequests((authorizeHttpRequests) ->
                         authorizeHttpRequests
+                                .requestMatchers("/index").permitAll()
                                 // указываем на то, какие страницы должны быть защищены аутентификацией.
                                 .requestMatchers("/admin").hasRole("USER")
                                 .requestMatchers("/admin/**").hasRole("ADMIN")
                                 // указываем на то, какие страницы не должны быть защищены аутентификацией
-                                .requestMatchers("/authentication", "/logout", "/registration", "/index")
+                                .requestMatchers("/authentication", "/logout", "/registration", "/index","/forgot-password")
                                 .permitAll()
                                 // любые страницы не описанные в матчерах выше
                                 // будут доступны пользователям с ролями user и admin
@@ -32,14 +36,13 @@ public class SecurityConfiguration {
                 .formLogin((formLogin) ->
                         formLogin
                                 // Указываем какой url запрос будет отправляться при заходе на защищенные страницы
-                                .loginPage("/")
+                                .loginPage("/login")
                                 // Указываем на какой адрес будут отправляться данные с формы.
-                                // Нам уже не нужно будет создавать метод в контроллере и обрабатывать данные с формы.
                                 // Мы задали url, который используется по умолчанию для обработки формы аутентификации по средствам Spring Security.
                                 // Spring Security будет ждать объект с формы аутентификации и затем сверять логин и пароль с данными в БД
                                 .loginProcessingUrl("/login")
                                 // Указываем на какой url необходимо направить пользователя после успешной аутентификации.
-                                // Вторым аргументом указывается true чтобы перенаправление шло в любом случае послу успешной аутентификации
+                                // Вторым аргументом указывается true чтобы перенаправление шло в любом случае после успешной аутентификации
                                 .defaultSuccessUrl("/product", true)
                                 .permitAll()
                                 // Указываем куда необходимо перенаправить пользователя при проваленной аутентификации.
@@ -48,6 +51,7 @@ public class SecurityConfiguration {
                 )
                 .logout((logout) ->
                         logout
+
                                 // аналогично, что и выше
                                 .logoutUrl("/logout")
                                 .logoutSuccessUrl("/authentication")
