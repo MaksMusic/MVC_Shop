@@ -10,7 +10,7 @@
             margin: 0;
             padding: 0;
             font-family: Arial, sans-serif;
-            background-image: url('/img/bg.jpeg');
+            background-image: url('/img/bg.jpg');
             background-size: cover;
             background-repeat: no-repeat;
         }
@@ -58,7 +58,7 @@
     <form action="#" th:action="@{/registration}" th:object="${user}" method="post">
         <div class="form-group">
             <label for="login">Логин:</label>
-            <input type="text" id="login" th:field="*{login}" placeholder="Введите ваш логин"> <!-- Thymeleaf атрибуты для привязки полей к объекту User -->
+            <input type="text" id="login" th:field="*{username}" placeholder="Введите ваш логин"> <!-- Thymeleaf атрибуты для привязки полей к объекту User -->
         </div>
         <div class="form-group">
             <label for="email">Email:</label>
@@ -66,7 +66,7 @@
         </div>
         <div class="form-group">
             <label for="phone">Номер телефона:</label>
-            <input type="tel" id="phone" th:field="*{numberPhone}" placeholder="Введите ваш номер телефона">
+            <input type="tel" id="phone" th:field="*{phoneNumber}" placeholder="Введите ваш номер телефона">
         </div>
         <div class="form-group">
             <label for="password">Пароль:</label>
